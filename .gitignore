@@ -1,0 +1,110 @@
+# ============================================================================
+# .gitignore para Projetos Python
+# Este arquivo especifica quais arquivos/pastas o Git deve ignorar
+# ============================================================================
+
+# --- AMBIENTES VIRTUAIS ---
+# Ambiente virtual Python (evita commitar dependências)
+.venv/
+venv/
+ENV/
+env/
+.virtualenv/
+
+# --- ARQUIVOS COMPILADOS PYTHON ---
+# Bytecode compilado e cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# --- DISTRIBUIÇÃO / EMPACOTAMENTO ---
+# Arquivos gerados durante build/distribuição
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# --- TESTES E COBERTURA ---
+# Arquivos gerados por ferramentas de teste
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# --- JUPYTER NOTEBOOK ---
+.ipynb_checkpoints
+
+# --- VARIÁVEIS DE AMBIENTE ---
+# Arquivos com credenciais e configurações sensíveis
+.env
+.env.local
+.env.*.local
+
+# --- LOGS ---
+*.log
+logs/
+
+# --- BANCO DE DADOS ---
+*.db
+*.sqlite
+*.sqlite3
+db.sqlite3
+
+# --- IDEs / EDITORES ---
+# Visual Studio Code
+.vscode/
+.history/
+
+# PyCharm
+.idea/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# --- SISTEMA OPERACIONAL ---
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# --- DOCKER ---
+# Não commitamos arquivos temporários do Docker
+.dockerignore
+
+# --- OUTROS ---
+# Arquivos temporários
+*.swp
+*.swo
+*.tmp
+.temp/
+

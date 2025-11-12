@@ -1,0 +1,42 @@
+# ============================================================================
+# requirements-dev.txt - Dependências de Desenvolvimento
+# 
+# Descrição:
+#   Ferramentas e bibliotecas usadas apenas durante o desenvolvimento,
+#   não necessárias em produção.
+#
+# Instalação:
+#   pip install -r requirements-dev.txt
+# ============================================================================
+
+# Inclui todas as dependências de produção
+-r requirements.txt
+
+# --- TESTES ---
+# pytest - Framework de testes
+pytest==7.4.3
+
+# pytest-cov - Cobertura de código
+pytest-cov==4.1.0
+
+# --- QUALIDADE DE CÓDIGO ---
+# black - Formatador automático de código
+black==23.11.0
+
+# flake8 - Linter para verificar estilo de código
+flake8==6.1.0
+
+# pylint - Analisador de código
+pylint==3.0.2
+
+# mypy - Verificador de tipos estáticos
+mypy==1.7.1
+
+# --- PRE-COMMIT ---
+# pre-commit - Gerenciador de hooks do Git
+pre-commit==3.5.0
+
+# --- DOCUMENTAÇÃO ---
+# sphinx - Gerador de documentação
+# sphinx==7.2.6
+

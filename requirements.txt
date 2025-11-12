@@ -1,0 +1,45 @@
+# ============================================================================
+# requirements.txt - Dependências de Produção
+# 
+# Descrição:
+#   Lista todas as bibliotecas Python necessárias para executar a aplicação
+#   em ambiente de produção.
+#
+# Instalação:
+#   pip install -r requirements.txt
+#
+# Atualização:
+#   Para atualizar este arquivo com as versões instaladas:
+#   pip freeze > requirements.txt
+# ============================================================================
+
+# --- FRAMEWORKS WEB (descomente se necessário) ---
+# Flask - Microframework para web
+# flask==3.0.0
+
+# FastAPI - Framework moderno para APIs
+# fastapi==0.104.1
+# uvicorn[standard]==0.24.0
+
+# Django - Framework full-stack
+# Django==4.2.7
+
+# --- BANCO DE DADOS ---
+# SQLAlchemy - ORM para banco de dados
+# sqlalchemy==2.0.23
+
+# psycopg2-binary - Driver PostgreSQL
+# psycopg2-binary==2.9.9
+
+# pymongo - Driver MongoDB
+# pymongo==4.6.0
+
+# --- UTILITÁRIOS ---
+# python-dotenv - Gerenciamento de variáveis de ambiente
+python-dotenv==1.0.0
+
+# requests - Cliente HTTP
+requests==2.31.0
+
+# --- ADICIONE SUAS DEPENDÊNCIAS AQUI ---
+

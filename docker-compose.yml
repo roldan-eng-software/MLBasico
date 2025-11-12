@@ -1,0 +1,98 @@
+# ============================================================================
+# docker-compose.yml - Orquestração de Containers
+# 
+# Descrição:
+#   Define e configura múltiplos containers que trabalham juntos.
+#   Facilita o desenvolvimento com serviços como banco de dados.
+#
+# Uso:
+#   docker-compose up -d     # Inicia todos os serviços em background
+#   docker-compose down      # Para e remove todos os containers
+#   docker-compose logs -f   # Visualiza logs em tempo real
+# ============================================================================
+
+version: '3.8'
+
+services:
+  # --- APLICAÇÃO PYTHON ---
+  app:
+    # Nome do container
+    container_name: ${PROJECT_NAME:-python_app}
+    
+    # Build da imagem usando o Dockerfile local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    # Mapeia a porta 8000 do container para 8000 do host
+    # Formato: HOST:CONTAINER
+    ports:
+      - "8000:8000"
+    
+    # Monta o código fonte como volume
+    # Isso permite desenvolvimento com hot-reload
+    # Comente em produção!
+    volumes:
+      - ./src:/app/src
+    
+    # Carrega variáveis de ambiente do arquivo .env
+    env_file:
+      - .env
+    
+    # Define variáveis de ambiente diretamente
+    environment:
+      - PYTHONUNBUFFERED=1
+      - ENVIRONMENT=development
+    
+    # Depende de outros serviços (inicia depois deles)
+    depends_on:
+      - db
+    
+    # Política de restart
+    # always: sempre reinicia se o container parar
+    restart: unless-stopped
+  
+  # --- BANCO DE DADOS (EXEMPLO: PostgreSQL) ---
+  # Descomente se precisar de banco de dados
+  db:
+    # Imagem oficial do PostgreSQL
+    image: postgres:15-alpine
+    
+    container_name: ${PROJECT_NAME:-python}_db
+    
+    # Porta do PostgreSQL
+    ports:
+      - "5432:5432"
+    
+    # Variáveis de ambiente para configurar o banco
+    environment:
+      - POSTGRES_USER=usuario
+      - POSTGRES_PASSWORD=senha_segura
+      - POSTGRES_DB=nome_banco
+    
+    # Volume para persistir dados do banco
+    # Os dados não são perdidos quando o container é removido
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    
+    restart: unless-stopped
+
+  # --- REDIS (EXEMPLO: Cache/Message Broker) ---
+  # Descomente se precisar de Redis
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: ${PROJECT_NAME:-python}_redis
+  #   ports:
+  #     - "6379:6379"
+  #   restart: unless-stopped
+
+# Define volumes nomeados (dados persistentes)
+volumes:
+  postgres_data:
+    driver: local
+
+# Define redes customizadas (opcional)
+networks:
+  default:
+    name: ${PROJECT_NAME:-python}_network
+

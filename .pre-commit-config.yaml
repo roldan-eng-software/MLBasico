@@ -1,0 +1,116 @@
+# ============================================================================
+# .pre-commit-config.yaml - Configuração de Hooks Pre-Commit
+# 
+# Descrição:
+#   Define verificações automáticas que rodam ANTES de cada commit.
+#   Garante qualidade e consistência do código.
+#
+# Instalação:
+#   pre-commit install
+#
+# Uso manual:
+#   pre-commit run --all-files  # Roda em todos os arquivos
+#   pre-commit run <hook-id>    # Roda um hook específico
+# ============================================================================
+
+# Define a versão mínima do pre-commit
+default_language_version:
+  python: python3.11
+
+# Configuração padrão para todos os hooks
+default_stages: [commit]
+
+# Lista de repositórios e seus hooks
+repos:
+  # --- HOOKS GERAIS DO PRE-COMMIT ---
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      # Remove espaços em branco no final das linhas
+      - id: trailing-whitespace
+        name: Remove espaços em branco no final
+      
+      # Garante que arquivos terminam com uma linha vazia
+      - id: end-of-file-fixer
+        name: Corrige fim de arquivo
+      
+      # Verifica sintaxe de arquivos YAML
+      - id: check-yaml
+        name: Verifica YAML
+        args: ['--unsafe']  # Permite alguns recursos avançados do YAML
+      
+      # Verifica sintaxe de arquivos JSON
+      - id: check-json
+        name: Verifica JSON
+      
+      # Verifica sintaxe de arquivos TOML
+      - id: check-toml
+        name: Verifica TOML
+      
+      # Previne commits direto na branch main/master
+      - id: no-commit-to-branch
+        name: Previne commit em main/master
+        args: ['--branch', 'main', '--branch', 'master']
+      
+      # Verifica se há conflitos de merge não resolvidos
+      - id: check-merge-conflict
+        name: Verifica conflitos de merge
+      
+      # Detecta chaves privadas em commits
+      - id: detect-private-key
+        name: Detecta chaves privadas
+      
+      # Previne adicionar arquivos muito grandes (>500KB)
+      - id: check-added-large-files
+        name: Verifica arquivos grandes
+        args: ['--maxkb=500']
+
+  # --- BLACK - FORMATADOR DE CÓDIGO ---
+  # Formata código Python automaticamente
+  - repo: https://github.com/psf/black
+    rev: 23.11.0
+    hooks:
+      - id: black
+        name: Formata código com Black
+        language_version: python3.11
+        args: ['--line-length=88']  # Tamanho máximo da linha
+
+  # --- FLAKE8 - LINTER ---
+  # Verifica estilo de código e possíveis erros
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.1.0
+    hooks:
+      - id: flake8
+        name: Verifica estilo com Flake8
+        args: [
+          '--max-line-length=88',  # Compatível com Black
+          '--extend-ignore=E203,W503',  # Ignora conflitos com Black
+        ]
+
+  # --- ISORT - ORGANIZA IMPORTS ---
+  # Ordena e organiza imports Python
+  - repo: https://github.com/pep8-speaks/flake8-isort
+    rev: v6.1.0
+    hooks:
+      - id: isort
+        name: Organiza imports
+        args: ['--profile', 'black']  # Compatível com Black
+
+  # --- MYPY - VERIFICAÇÃO DE TIPOS ---
+  # Verifica tipos estáticos (descomente se usar type hints)
+  # - repo: https://github.com/pre-commit/mirrors-mypy
+  #   rev: v1.7.1
+  #   hooks:
+  #     - id: mypy
+  #       name: Verifica tipos com MyPy
+  #       additional_dependencies: [types-all]
+
+  # --- BANDIT - SEGURANÇA ---
+  # Detecta problemas comuns de segurança
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        name: Verifica segurança com Bandit
+        args: ['-ll']  # Apenas avisos de nível baixo e acima
+
